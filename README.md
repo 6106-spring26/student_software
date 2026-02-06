@@ -144,7 +144,7 @@ Within your Linux machine,
 1.  Clone this repo:
 
     ```
-    git clone git@github.com:6106-fall24/student_software.git
+    git clone git@github.com:6106-spring26/student_software.git
     ```
 
 2.  Inside the same terminal, after cloning the repository, run:
