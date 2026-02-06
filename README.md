@@ -197,6 +197,8 @@ telerun is the program you will use to submit jobs to the class instances for re
 telerun [binary]
 ```
 
+Apparently, you might get SSL certificate errors when on `eduroam` wifi. Use `MIT-Secure` wifi instead.
+
 ## Part 4: Test
 
 ### Build the student_software test program
