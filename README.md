@@ -233,11 +233,11 @@ Apparently, you might get SSL certificate errors when on `eduroam` wifi. Use `MI
 
    Submitting Job: ./test_program
    Waiting for job to finish...
-   ==== Standard Output ====
+   ==== stdout ====
    Welcome to 6.106!
 
 
-   ==== Standard Error ====
+   ==== stderr ====
    ```
 
    **If you did not see that, please let the staff know in a Piazza post, office hours, or recitation.**
