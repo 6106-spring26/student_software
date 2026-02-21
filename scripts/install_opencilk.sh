@@ -11,4 +11,5 @@ else
   curl -L $opencilk_url | tar -zxv --strip-components=1 -C /opt/6106/opencilk
 
   ln -sf /opt/6106/opencilk/bin/clang /usr/bin/clang-6106
+  ln -sf /opt/6106/opencilk/bin/clang++ /usr/bin/clang-6106++
 fi
