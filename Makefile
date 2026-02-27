@@ -6,10 +6,11 @@ PRODUCT_OBJECTS = $(PRODUCT_SOURCES:.c=.o)
 
 PRODUCT = test_program
 
-DEFINES += -DSIMDE_ENABLE_NATIVE_ALIASES
+# DEFINES += -DSIMDE_ENABLE_NATIVE_ALIASES
 
 # What we're building with
-CC = clang-6106
+CC = clang
+LD = clang-6106++
 CFLAGS = -std=gnu11 -Wall -Wno-psabi -fopencilk -mavx2 $(DEFINES)
 LDFLAGS = -static -pthread -fuse-ld=lld -lrt -lm -fopencilk -flto 
 
@@ -54,4 +55,4 @@ clean:
 $(PRODUCT): LDFLAGS += -lXext -lX11
 $(PRODUCT): CFLAGS += $(STRICT_CFLAGS)
 $(PRODUCT):	$(PRODUCT_OBJECTS)
-	$(CC) $(LDFLAGS) $(EXTRA_LDFLAGS) -o $@ $(PRODUCT_OBJECTS)
+	$(LD) $(LDFLAGS) $(EXTRA_LDFLAGS) -o $@ $(PRODUCT_OBJECTS)
