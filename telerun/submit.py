@@ -84,6 +84,25 @@ def process_response(response, script_args=None, job_id=None):
                     f2.write(file_content)
                     
     
+
+    if 'magictrace_data' in result and script_args:
+        print()
+        print("Magictrace data saved.")
+        with open("trace.fxt.gz", "wb") as f:
+            f.write(base64.b64decode(result["magictrace_data"]))
+        for idx, file in enumerate(script_args["files"]):
+            if file[:2] == './':
+                file = file[2:]
+            with open(file, 'rb') as f:
+                file_content = f.read()
+                # write this to a hidden directory
+                assert job_id is not None and script_args is not None
+                # if job-{job_id} doesn't exist, create it
+                if not os.path.exists(os.path.join(hidden_perf_directory, f"job-{job_id}")):
+                    os.makedirs(os.path.join(hidden_perf_directory, f"job-{job_id}"))
+                with open(os.path.join(hidden_perf_directory, f"job-{job_id}/{file}"), "wb") as f2:
+                    f2.write(file_content)
+
 def get_last_complete_job(username, token, ssl_ctx):
     query_params = {}
     url_query = urllib.parse.urlencode(query_params)
@@ -141,10 +160,14 @@ def preprocess_args(script_args):
     remaining_args = []
     files = []
     do_perf = False
+    do_magictrace = False
     for idx, arg in enumerate(script_args):
         if idx == 0 and arg.startswith("perf"):
             assert script_args[idx + 1] == "record"
             do_perf = True
+        if idx == 0 and arg.startswith("magic-trace"):
+            assert script_args[idx + 1] == "run"
+            do_magictrace = True
 
         if os.path.isfile(arg):
             remaining_args.append(f"file{len(files)}")
@@ -154,7 +177,8 @@ def preprocess_args(script_args):
     returns = {
         "command": " ".join(remaining_args),
         "files": files,
-        "perf": do_perf
+        "perf": do_perf,
+        "magictrace": do_magictrace,
     }
     return returns
 
